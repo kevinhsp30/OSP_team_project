@@ -34,15 +34,15 @@ class Character:
 
 class Background:
     def __init__(self, image, posX = 0, upY = 0):
-        self.background = image
+        self.size = image.get_rect().size
+        self.width = self.size[0]* screen_width/1290 * 1.2
+        self.height = self.size[1]* screen_height/730 * 1.2
+        self.background = py.transform.scale(image, (self.width,self.height))
         self.size = self.background.get_rect().size
-        self.width = self.size[0]
-        self.height = self.size[1]
         self.posX = posX                                      # 왼쪽 끝에 맞춤
         self.posY = screen_height - self.height - upY         # 바닥에 맞춤
     # background = py.image.load("image\\68858716_p0.jpg")
-    
-                           
+              
 
 class Obstacle:
     obstacle = py.image.load("image\장애물_지상.png")

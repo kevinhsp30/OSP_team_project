@@ -2,7 +2,7 @@ import pygame as py
 import pyautogui
 
 import start_menu
-import temp
+import setup
 
 
 py.init()
@@ -12,9 +12,9 @@ py.init()
 # screen = py.display.set_mode((screen_width, screen_height))
 # background = py.image.load("흰색 이미지.png")
 
-screen = temp.screen        # 사용자 모니터 해상도
-screen_width = temp.screen_width
-screen_height = temp.screen_height
+screen = setup.screen        # 사용자 모니터 해상도
+screen_width = setup.screen_width
+screen_height = setup.screen_height
 
 
 # 시작 화면
@@ -41,7 +41,7 @@ class Character:
             self.character = self.img_rPuang # py.image.load("image\푸앙_사랑_look_right.png")
             self.is_sight = "right"
 
-
+'''
 class Background:
     def __init__(self, image, posX = 0, upY = 0):
         self.size = image.get_rect().size
@@ -52,7 +52,7 @@ class Background:
         self.posX = posX                                      # 왼쪽 끝에 맞춤
         self.posY = screen_height - self.height - upY         # 바닥에 맞춤
     # background = py.image.load("image\\68858716_p0.jpg")
-    
+'''
                            
 
 class Obstacle:
@@ -80,9 +80,9 @@ class Obstacle:
 Puang = Character()
 
 Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-bg_1st = Background(py.image.load("image\stage1_bg.png"))
-bg_2st = Background(py.image.load("image\stage2_bg.png"))
-bg_3st = Background(py.image.load("image\stage3_bg.png"))
+bg_1st = setup.Background(py.image.load("image\stage1_bg.png"))
+bg_2st = setup.Background(py.image.load("image\stage2_bg.png"))
+bg_3st = setup.Background(py.image.load("image\stage3_bg.png"))
 
 land_obs = Obstacle(py.image.load("image\장애물_지상.png"))
 # land_obs.obstacle = py.image.load("image\장애물_지상.png")
@@ -221,7 +221,7 @@ while running:
 
 
     for i in (0,1,2,3,4):
-        screen.blit(bg.background, (bg.posX + bg.width*i, 0))
+        screen.blit(bg.background, (bg.posX + bg.width* i, 0))
     
 
 
