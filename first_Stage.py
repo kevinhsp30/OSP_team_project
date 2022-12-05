@@ -19,7 +19,9 @@ screen_height = setup.screen_height
 
 # 시작 화면
 start_menu.start_menu()
-    
+
+
+'''
 class Character:
     size = py.image.load("image\푸앙_사랑_look_right.png").get_rect().size
     width = size[0] * screen_width/1290 * 0.7            
@@ -40,6 +42,7 @@ class Character:
         elif self.is_sight == "left":
             self.character = self.img_rPuang # py.image.load("image\푸앙_사랑_look_right.png")
             self.is_sight = "right"
+'''
 
 '''
 class Background:
@@ -55,6 +58,7 @@ class Background:
 '''
                            
 
+"""
 class Obstacle:
     count = 0
     def __init__(self, image, posX = 0, posY = 0): # 제 1사분면에서의 좌표값
@@ -66,7 +70,8 @@ class Obstacle:
         self.posX = posX
         self.posY = screen_height - self.height - posY
         Obstacle.count += 1
-        
+"""
+
     # obstacle = py.image.load("image\장애물_지상.png")
     # size = obstacle.get_rect().size
     # width = size[0]
@@ -77,22 +82,35 @@ class Obstacle:
 
 
 # 인스턴스 생성
-Puang = Character()
+# Puang = Character()
 
-Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-bg_1st = setup.Background(py.image.load("image\stage1_bg.png"))
-bg_2st = setup.Background(py.image.load("image\stage2_bg.png"))
-bg_3st = setup.Background(py.image.load("image\stage3_bg.png"))
+# Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
+# bg_1st = setup.Background(py.image.load("image\stage1_bg.png"))
+# bg_2st = setup.Background(py.image.load("image\stage2_bg.png"))
+# bg_3st = setup.Background(py.image.load("image\stage3_bg.png"))
 
-land_obs = Obstacle(py.image.load("image\장애물_지상.png"))
-# land_obs.obstacle = py.image.load("image\장애물_지상.png")
+
+# land_obs = setup.Obstacle(py.image.load("image\장애물_지상.png"),screen_width*0.5)
+# land_obs_2 = setup.Obstacle(py.image.load("image\장애물_지상.png"),screen_width*1.5)
+# # land_obs.obstacle = py.image.load("image\장애물_지상.png")
+
+Puang = setup.Character()
+Puang = setup.Puang
+
+
+bg_1st = setup.bg_1st
+bg_2st = setup.bg_2st
+bg_3st = setup.bg_3st
+
+land_obs = setup.land_obs
+land_obs_2 = setup.land_obs_2
 
 
 
 py.display.set_caption("1st_Stage")
 to_x, to_y = 0,0
 
-bg = bg_3st
+bg = setup.bg_3st
 clock = py.time.Clock()
 
 
@@ -201,11 +219,14 @@ while running:
         Puang.posX = 0
         to_x = 0
 
+
+
+    ### 장해물 이동 (장해물 생성시 하나하나 작성해 주어야 함)
     if Puang.posX < (screen_width/2) - (Puang.width/2):
         bg.posX = 0
         Puang.posX += to_x
         land_obs.posX += to_x
-    
+        land_obs_2.posX -= to_x
 
 
 
@@ -214,7 +235,7 @@ while running:
     # 원근감 표현
     bg.posX -= to_x/2
     land_obs.posX -= to_x
-
+    land_obs_2.posX -= to_x
 
     # 충돌 확인
     # if land_obs.posX == Puang.posX:
@@ -227,7 +248,7 @@ while running:
 
     screen.blit(Puang.character, (Puang.posX, Puang.posY))
     screen.blit(land_obs.obstacle, (land_obs.posX, land_obs.posY))
-    
+    screen.blit(land_obs_2.obstacle, (land_obs_2.posX, land_obs_2.posY))
     py.display.update()
 
 

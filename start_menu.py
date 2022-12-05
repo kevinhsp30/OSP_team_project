@@ -125,6 +125,5 @@ def start_menu():
             pygame.draw.rect(screen,(241, 144, 183),[155,160,970,400])
         pygame.display.flip()
 
-        start_sound.play()          
-        pygame.display.flip()
-        
+    start_sound.play()          
+   
