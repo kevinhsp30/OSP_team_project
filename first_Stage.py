@@ -3,7 +3,7 @@ import pyautogui
 
 import start_menu
 import setup
-
+import collision
 
 py.init()
 
@@ -226,7 +226,7 @@ while running:
         bg.posX = 0
         Puang.posX += to_x
         land_obs.posX += to_x
-        land_obs_2.posX -= to_x
+        land_obs_2.posX += to_x
 
 
 
@@ -237,14 +237,17 @@ while running:
     land_obs.posX -= to_x
     land_obs_2.posX -= to_x
 
+
     # 충돌 확인
-    # if land_obs.posX == Puang.posX:
-
-
+    # for i in range(0,len(setup.obs_list)):
+    #     collision.check_collision(i)
+    # if collision.is_Collision == True:
+    #     break
+        
+    
     for i in (0,1,2,3,4):
         screen.blit(bg.background, (bg.posX + bg.width* i, 0))
     
-
 
     screen.blit(Puang.character, (Puang.posX, Puang.posY))
     screen.blit(land_obs.obstacle, (land_obs.posX, land_obs.posY))
