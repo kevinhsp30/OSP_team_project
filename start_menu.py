@@ -128,7 +128,3 @@ def start_menu():
         start_sound.play()          
         pygame.display.flip()
         
-        
-    
-# start_menu()
-
