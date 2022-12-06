@@ -116,13 +116,15 @@ clock = py.time.Clock()
 
 init_speed = 1
 count = 0
+distance = 0
+walk_interval = 0
+cross_leg = True
 
-a = 0
 # 이벤트 루프
 running = True
 while running:
 
-    dt = clock.tick(250)
+    dt = clock.tick(200)
 
     # 속도 고정
     # 속도 변화 전처리 or 후처리 결정 필요
@@ -221,7 +223,7 @@ while running:
 
 
 
-    ### 장해물 이동 (장해물 생성시 하나하나 작성해 주어야 함)
+    ### 장애물 이동 (장애물 생성시 하나하나 작성해 주어야 함)
     if Puang.posX < (screen_width/2) - (Puang.width/2):
         bg.posX = 0
         Puang.posX += to_x
@@ -231,7 +233,7 @@ while running:
 
 
 
-    # 배경과 장해물 이동
+    # 배경과 장애물 이동
     # 원근감 표현
     bg.posX -= to_x/2
     land_obs.posX -= to_x
@@ -243,13 +245,43 @@ while running:
     #     collision.check_collision(i)
     # if collision.is_Collision == True:
     #     break
+    if Puang.posX > 0:
+        distance += to_x
+    print('distance = ', distance)
     
-    a += to_x
-    print(a)
+    
     for i in (0,1,2,3,4):
         screen.blit(bg.background, (bg.posX + bg.width* i, 0))
     
 
+    temp_distance = distance
+    if temp_distance%speed !=0:
+        temp_distance -= temp_distance%speed
+        
+    if temp_distance%(speed*25) == 0:
+        cross_leg = not cross_leg
+
+    if to_x < 0 and Puang.is_running:
+        if cross_leg:
+            Puang.character = Puang.img_lPuang_std
+            
+        else:
+            Puang.character = Puang.img_lPuang_walk
+        
+    elif to_x > 0 and Puang.is_running:
+        if cross_leg:
+            Puang.character = Puang.img_rPuang_std
+            
+        else:
+            Puang.character = Puang.img_rPuang_walk
+            
+    elif to_x == 0:
+        if Puang.is_sight == 'left':
+            Puang.character = Puang.img_lPuang_std
+        else:
+            Puang.character = Puang.img_rPuang_std
+        
+        
     screen.blit(Puang.character, (Puang.posX, Puang.posY))
     screen.blit(land_obs.obstacle, (land_obs.posX, land_obs.posY))
     screen.blit(land_obs_2.obstacle, (land_obs_2.posX, land_obs_2.posY))

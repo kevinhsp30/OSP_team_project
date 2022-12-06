@@ -15,23 +15,26 @@ obs_list = []
 
 class Character:
     size = py.image.load("image\푸앙_사랑_look_right.png").get_rect().size
-    width = size[0] * screen_width/1290 * 0.7            
-    height = size[1] * screen_height/730 * 0.7           # 유저 모니터 해상도에 따라 캐릭터 크기 조정
-    character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (width,height))
-    img_rPuang = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (width,height))
-    img_lPuang = py.transform.scale(py.image.load("image\푸앙_사랑.png"), (width,height))
+    width = size[0] * screen_width/1600 * 0.7            
+    height = size[1] * screen_height/900 * 0.7           # 유저 모니터 해상도에 따라 캐릭터 크기 조정
+    character = py.transform.scale(py.image.load("image\walk_1_r.png"), (width,height))
+    img_rPuang_std = py.transform.scale(py.image.load("image\walk_1_r.png"), (width,height))
+    img_rPuang_walk = py.transform.scale(py.image.load("image\walk2_r.png"), (width,height))
+    img_lPuang_std = py.transform.scale(py.image.load("image\walk_1.png"), (width,height))
+    img_lPuang_walk = py.transform.scale(py.image.load("image\walk2.png"), (width,height))
     posX = (screen_width/2) - (width/2)
     posY = screen_height - height
     is_sight = "right"
     is_jumping = False
     is_running = True
+    
 
     def trun_Char(self):
         if self.is_sight == "right":
-            self.character =  self.img_lPuang # py.image.load("image\푸앙_사랑.png")
+            self.character =  self.img_lPuang_std # py.image.load("image\푸앙_사랑.png")
             self.is_sight = "left"
         elif self.is_sight == "left":
-            self.character = self.img_rPuang # py.image.load("image\푸앙_사랑_look_right.png")
+            self.character = self.img_rPuang_std # py.image.load("image\푸앙_사랑_look_right.png")
             self.is_sight = "right"
 
 class Background:
