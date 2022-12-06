@@ -117,7 +117,7 @@ clock = py.time.Clock()
 init_speed = 1
 count = 0
 
-
+a = 0
 # 이벤트 루프
 running = True
 while running:
@@ -243,8 +243,9 @@ while running:
     #     collision.check_collision(i)
     # if collision.is_Collision == True:
     #     break
-        
     
+    a += to_x
+    print(a)
     for i in (0,1,2,3,4):
         screen.blit(bg.background, (bg.posX + bg.width* i, 0))
     
