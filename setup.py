@@ -6,7 +6,7 @@ import pyautogui
 # 사용자 모니터 크기 가져오기
 M_size = pyautogui.size()
 screen_width = M_size[0]
-screen_height = M_size[1] - 60
+screen_height = M_size[1] - 70
 
 # 화면 생성
 screen = py.display.set_mode((screen_width, screen_height))
@@ -75,9 +75,9 @@ class Obstacle:
 Puang = Character()
 
 # Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-bg_1st = Background(py.image.load("image\stage1_bg.png"))
-bg_2st = Background(py.image.load("image\stage2_bg.png"))
-bg_3st = Background(py.image.load("image\stage3_bg.png"))
+bg_1 = Background(py.image.load("image\stage1_bg.png"))
+bg_2 = Background(py.image.load("image\stage2_bg.png"))
+bg_3 = Background(py.image.load("image\stage3_bg.png"))
 
 
 land_obs = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*0.5)
