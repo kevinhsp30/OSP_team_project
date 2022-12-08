@@ -11,7 +11,7 @@ screen_height = M_size[1] - 70
 # 화면 생성
 screen = py.display.set_mode((screen_width, screen_height))
 
-obs_list = []
+
 
 class Character:
     size = py.image.load("image\푸앙_사랑_look_right.png").get_rect().size
@@ -51,6 +51,8 @@ class Background:
 
 class Obstacle:
     count = 0
+    obs_list = []
+    
     
     def __init__(self, image, posX = 0, posY = 0): # 제 1사분면에서의 좌표값
         self.size = image.get_rect().size
@@ -61,7 +63,7 @@ class Obstacle:
         self.posX = posX
         self.posY = screen_height - self.height - posY
         Obstacle.count += 1
-        obs_list.append(self)
+        self.obs_list.append(self)
         
 # class Obstacle:
 #     obstacle = py.image.load("image\장애물_지상.png")
@@ -72,16 +74,14 @@ class Obstacle:
 #     posY = screen_height - height
 
 # 인스턴스 생성
-Puang = Character()
+# Puang = Character()
 
 # Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-bg_1 = Background(py.image.load("image\stage1_bg.png"))
-bg_2 = Background(py.image.load("image\stage2_bg.png"))
-bg_3 = Background(py.image.load("image\stage3_bg.png"))
+# bg_1 = Background(py.image.load("image\stage1_bg.png"))
+# bg_2 = Background(py.image.load("image\stage2_bg.png"))
+# bg_3 = Background(py.image.load("image\stage3_bg.png"))
 
 
-land_obs = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*0.5)
-land_obs_2 = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*1.3)
+# land_obs = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*0.2)
+# land_obs_2 = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*1.3)
 # land_obs.obstacle = py.image.load("image\장애물_지상.png")
-
-obs_list = [land_obs,land_obs_2]
