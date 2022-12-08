@@ -26,14 +26,13 @@ def start_menu():
     k_click = False
     game_start_pos = False
     stg_num = 0
-    main_size = [150]
+  
     background_x = 0
     background2_x = bg.width
     pygame.init()
     screen = setup.screen
     main_bgm = pygame.mixer.Sound('main_bgm.mp3')
     start_sound = pygame.mixer.Sound('start.mp3')
-    stg_sound = pygame.mixer.Sound('stg.wav')
 
     while True:
         screen.fill(black)
@@ -59,14 +58,14 @@ def start_menu():
         
         # 마우스 위치와 클릭 여부
         if (SCREEN_WIDTH/2-SCREEN_WIDTH*0.1-bt_game_start.get_width())* 1.1 < pygame.mouse.get_pos()[0]< ((SCREEN_WIDTH/2-SCREEN_WIDTH*0.1-bt_game_start.get_width())* 1.1) + bt_game_start.get_width() and  (SCREEN_HEIGHT/2-bt_game_start.get_height())* 1.1 < pygame.mouse.get_pos()[1]< (SCREEN_HEIGHT/2-bt_game_start.get_height())* 1.1 + bt_game_start.get_height():
-            main_size[0] = 200
+            
 
             game_start_pos = True
         elif bt_game_exit_posX < pygame.mouse.get_pos()[0] < bt_game_exit_posX + bt_game_exit.get_width() and bt_game_exit_posY < pygame.mouse.get_pos()[1] < bt_game_exit_posY + bt_game_exit.get_height():
 
             game_exit_pos = True
         else:
-            main_size[0] = 150
+            
 
             game_start_pos = False
 
