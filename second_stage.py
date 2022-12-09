@@ -5,7 +5,7 @@ import time
 import setup
 import collision
 
-def first_stage():
+def second_stage():
     py.init()
     
     # 인스턴스 생성 및 초기화
@@ -19,9 +19,10 @@ def first_stage():
     setup.Obstacle.count = 0
     setup.Obstacle.obs_list = []
     # land_obs = setup.Obstacle(py.image.load("image\장애물_지상.png"),setup.screen_width*0.2)
-    land_obs = setup.Obstacle(py.image.load("image\stage1_ob1.png"),setup.screen_width*1.3)
-    land_obs_2 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*2)
-    land_obs_3 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*3)
+    land_obs = setup.Obstacle(py.image.load("image\stage1_ob1.png"),setup.screen_width*1)
+    land_obs_2 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*2.3)
+    # land_obs_3 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*3)
+ 
 
     
     obs_list = setup.Obstacle.obs_list
@@ -42,14 +43,14 @@ def first_stage():
     # land_obs = setup.land_obs
     # land_obs_2 = setup.land_obs_2
     # Puang = setup.Character()
-    bg = bg_1
+    bg = bg_2
     
     collision.is_Collision = False
     init_speed = 1
     count = 0
     distance = 0
     cross_leg = True
-    
+    temp_speed = 0
     
     running = True
     while running:
@@ -184,21 +185,24 @@ def first_stage():
             if Puang.posX  < (obs_list[i].posX + obs_list[i].width)- obs_list[i].width*0.2 and Puang.posX + Puang.width > obs_list[i].posX + obs_list[i].width*0.2:
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
                     collision.is_Collision = True
-        if collision.is_Collision == True:
-            break
-
+           
+        if not collision.is_Collision:
+            speed = temp_speed
+                    
+        if collision.is_Collision:
+            # for i in range(0,int(int(obs_list[0].width) /dt)):
+            speed = temp_speed
+            speed *= 0.1
+            collision.is_Collision = False
             
+       
         
-        if obs_list[len(obs_list)-1].posX + Puang.width*2 <= Puang.posX:
-            break
-            
         
         if Puang.posX > 0:
             distance += to_x
         print('distance = ', distance)
         
         
-        # 배경 그리는 부분
         for i in (0,1,2,3,4):
             screen.blit(bg.background, (bg.posX + bg.width* i, 0))
         
@@ -233,6 +237,9 @@ def first_stage():
                 Puang.character = Puang.img_rPuang_std
             
         
+        
+        
+        
         # 캐릭터와 장해물 그리는 부분
         screen.blit(Puang.character, (Puang.posX, Puang.posY))
         for i in range(0,setup.Obstacle.count):
@@ -240,4 +247,3 @@ def first_stage():
         # screen.blit(land_obs.obstacle, (land_obs.posX, land_obs.posY))
         # screen.blit(land_obs_2.obstacle, (land_obs_2.posX, land_obs_2.posY))
         py.display.update()
-       
