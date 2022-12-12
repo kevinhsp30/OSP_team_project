@@ -5,6 +5,12 @@ import time
 import setup
 import collision
 
+count_coll = 0
+
+screen = setup.screen        # 사용자 모니터 해상도
+screen_width = setup.screen_width
+screen_height = setup.screen_height
+
 def first_stage():
     py.init()
     
@@ -26,7 +32,6 @@ def first_stage():
     
     obs_list = setup.Obstacle.obs_list
     
-
     
     screen = setup.screen        # 사용자 모니터 해상도
     screen_width = setup.screen_width
@@ -73,6 +78,7 @@ def first_stage():
         for event in py.event.get():
             if event.type == py.QUIT:
                 running = False
+                quit()
 
             if event.type == py.KEYDOWN:
                 if event.key == py.K_LEFT:
@@ -131,16 +137,16 @@ def first_stage():
 
         # 점프
         if Puang.is_jumping:
-            ground = screen_height - Puang.height
+            ground = screen_height - Puang.posY
             Puang.posY -= speed
-            if Puang.posY < ground - screen_height * 0.25:  # 점프 높이
+            if Puang.posY < ground - screen_height * 0.04:  # 점프 높이
                 Puang.is_jumping = False
 
         # 높이를 지면에 고정(중력)
         if not Puang.is_jumping:
             Puang.posY += speed
-            if Puang.posY > screen_height - Puang.height:
-                Puang.posY = screen_height - Puang.height
+            if Puang.posY > screen_height - Puang.height - screen_height*0.1:
+                Puang.posY = screen_height - Puang.height - screen_height*0.1
                 Puang.is_running = True
 
 
@@ -200,7 +206,7 @@ def first_stage():
         
         # 배경 그리는 부분
         for i in (0,1,2,3,4):
-            screen.blit(bg.background, (bg.posX + bg.width* i, 0))
+            screen.blit(bg.background, (bg.posX + bg.width* i, -screen_height*0.06))
         
 
 
@@ -240,4 +246,70 @@ def first_stage():
         # screen.blit(land_obs.obstacle, (land_obs.posX, land_obs.posY))
         # screen.blit(land_obs_2.obstacle, (land_obs_2.posX, land_obs_2.posY))
         py.display.update()
-       
+
+
+
+
+def coll_1():
+
+    py.init()
+    running = True
+    stg1_D1 = setup.Scene(py.image.load("image\stg1_D1.png"))
+    while running:
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                quit()
+
+            if event.type == py.KEYDOWN:
+
+                if event.key == py.K_SPACE:
+                    running = False
+
+    
+    
+        screen.blit(stg1_D1.scene,(0,0))
+        py.display.update()
+    
+
+def coll_2():
+
+    py.init()
+    running = True
+    stg1_D1 = setup.Scene(py.image.load("image\stg1_D2.png"))
+    while running:
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                quit()
+
+            if event.type == py.KEYDOWN:
+
+                if event.key == py.K_SPACE:
+                    running = False
+
+    
+    
+        screen.blit(stg1_D1.scene,(0,0))
+        py.display.update()
+    
+
+def coll_3():
+
+    py.init()
+    running = True
+    stg1_D1 = setup.Scene(py.image.load("image\stg1_D3.png"))
+    while running:
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                quit()
+
+            if event.type == py.KEYDOWN:
+
+                if event.key == py.K_SPACE:
+                    running = False
+
+    
+    
+        screen.blit(stg1_D1.scene,(0,0))
+        py.display.update()
+    
+

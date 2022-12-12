@@ -23,7 +23,7 @@ class Character:
     img_lPuang_std = py.transform.scale(py.image.load("image\walk_1.png"), (width,height))
     img_lPuang_walk = py.transform.scale(py.image.load("image\walk2.png"), (width,height))
     posX = (screen_width/2) - (width/2)
-    posY = screen_height - height
+    posY = screen_height - height - screen_height*0.1
     is_sight = "right"
     is_jumping = False
     is_running = True
@@ -45,7 +45,7 @@ class Background:
         self.background = py.transform.scale(image, (self.width,self.height))
         self.size = self.background.get_rect().size
         self.posX = posX                                      # 왼쪽 끝에 맞춤
-        self.posY = screen_height - self.height - upY         # 바닥에 맞춤
+        self.posY = screen_height - self.height - upY    # 바닥에 맞춤
     # background = py.image.load("image\\68858716_p0.jpg")
               
 
@@ -61,10 +61,24 @@ class Obstacle:
         self.obstacle = py.transform.scale(image, (self.width,self.height))
         self.size = self.obstacle.get_rect().size
         self.posX = posX
-        self.posY = screen_height - self.height - posY
+        self.posY = screen_height - self.height - posY - screen_height*0.08
         Obstacle.count += 1
         self.obs_list.append(self)
-        
+
+
+class Scene:
+    def __init__(self, image):
+        self.size = image.get_rect().size
+        self.width = self.size[0]* screen_width/1290
+        self.height = self.size[1]* screen_height/730
+        self.scene = py.transform.scale(image, (self.width,self.height))
+        self.size = self.scene.get_rect().size
+        self.posX = 0                           
+        self.posY = 0   
+
+      
+
+
 # class Obstacle:
 #     obstacle = py.image.load("image\장애물_지상.png")
 #     size = obstacle.get_rect().size

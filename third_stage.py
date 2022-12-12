@@ -5,7 +5,7 @@ import time
 import setup
 import collision
 
-def second_stage():
+def third_stage():
     py.init()
     
     # 인스턴스 생성 및 초기화
@@ -43,7 +43,7 @@ def second_stage():
     # land_obs = setup.land_obs
     # land_obs_2 = setup.land_obs_2
     # Puang = setup.Character()
-    bg = bg_2
+    bg = bg_3
     
     collision.is_Collision = False
     init_speed = 1
