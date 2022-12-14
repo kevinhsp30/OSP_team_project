@@ -1,9 +1,15 @@
 import pygame as py
 import sys
 import time
+import random
 
 import setup
 import collision
+
+
+screen = setup.screen        # 사용자 모니터 해상도
+screen_width = setup.screen_width
+screen_height = setup.screen_height
 
 def third_stage():
     py.init()
@@ -15,23 +21,53 @@ def third_stage():
     bg_1 = setup.Background(py.image.load("image\stage1_bg.png"))
     bg_2 = setup.Background(py.image.load("image\stage2_bg.png"))
     bg_3 = setup.Background(py.image.load("image\stage3_bg.png"))
-
+    bg_3_fire = setup.Background(py.image.load("image\BG_3rd_fire.png"))
+    
     setup.Obstacle.count = 0
     setup.Obstacle.obs_list = []
-    # land_obs = setup.Obstacle(py.image.load("image\장애물_지상.png"),setup.screen_width*0.2)
-    land_obs = setup.Obstacle(py.image.load("image\stage1_ob1.png"),setup.screen_width*1)
-    land_obs_2 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*2.3)
-    # land_obs_3 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*3)
- 
 
+    # 장애물 랜덤 생성
+    ob_1 = "image\stage_3\stage3_ob1.png"
+    ob_2 = "image\stage_3\stage3_ob2.png"
+    ob_3 = "image\stage_3\stage3_ob3.png"
+    ob_4 = "image\stage_3\stage3_ob4.png"
+    
+    effect = "image\stage_3\stage3_paang.png"
+
+    bubble1 = setup.Scene(py.image.load("image\stage_3\stage3_bubble1.png"))
+    bubble2 = setup.Scene(py.image.load("image\stage_3\stage3_bubble2.png"))
+    bubble3 = setup.Scene(py.image.load("image\stage_3\stage3_bubble3.png"))
+    bub1_time = 0
+    bub2_time = 0
+    bub3_time = 0
+
+    type_obs = [ob_1,ob_2,ob_3,ob_4]
+
+    land_obs = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*0.6)
+    land_obs_2 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*1)
+
+    land_obs_3 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*1.6)
+    land_obs_4 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*2.1)
+
+    land_obs_5 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*2.5)
+    land_obs_6 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*3)
+
+    land_obs_7 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*3.6)
+    land_obs_8 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*4)
+
+    land_obs_9 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*4.4)
+    land_obs_10 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*4.9)
+
+    land_obs_11 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*5.3)
+    land_obs_12 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*5.6)
+    
+    ob_truck = setup.Obstacle(py.image.load("image\\truck.png"),screen_width*7)
     
     obs_list = setup.Obstacle.obs_list
     
 
     
-    screen = setup.screen        # 사용자 모니터 해상도
-    screen_width = setup.screen_width
-    screen_height = setup.screen_height
+
     
     # py.display.set_caption("1st_Stage")
     to_x, to_y = 0,0
@@ -51,7 +87,7 @@ def third_stage():
     distance = 0
     cross_leg = True
     temp_speed = 0
-    
+    ground = screen_height - Puang.posY    
     running = True
     while running:
 
@@ -132,11 +168,10 @@ def third_stage():
 
         # 점프
         if Puang.is_jumping:
-            ground = screen_height - Puang.posY
             Puang.posY -= speed
-            if Puang.posY < ground - screen_height * 0.04:  # 점프 높이
+            if Puang.posY < ground/   0.4 :  # 점프 높이
                 Puang.is_jumping = False
-
+                
         # 높이를 지면에 고정(중력)
         if not Puang.is_jumping:
             Puang.posY += speed
@@ -168,7 +203,7 @@ def third_stage():
 
 
 
-
+    
         # 배경과 장애물 이동
         # 원근감 표현
         bg.posX -= to_x/2
@@ -185,17 +220,19 @@ def third_stage():
             if Puang.posX  < (obs_list[i].posX + obs_list[i].width)- obs_list[i].width*0.2 and Puang.posX + Puang.width > obs_list[i].posX + obs_list[i].width*0.2:
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
                     collision.is_Collision = True
-           
-        if not collision.is_Collision:
-            speed = temp_speed
-                    
-        if collision.is_Collision:
-            # for i in range(0,int(int(obs_list[0].width) /dt)):
-            speed = temp_speed
-            speed *= 0.1
+                    collision.third_coll_num = i
+                    # del obs_list[i]
+                    pass
+
+        if bub1_time == 30 or bub2_time == 30 or bub3_time == 30:
+
             collision.is_Collision = False
-            
-       
+            if bub1_time == 30:
+                bub1_time+=1
+            elif bub2_time == 30:
+                bub2_time+=1
+            elif bub3_time == 30:
+                bub3_time+=1
         
         
         if Puang.posX > 0:
@@ -203,9 +240,11 @@ def third_stage():
         print('distance = ', distance)
         
         
-        for i in (0,1,2,3,4):
+        # 배경 그리는 부분
+        for i in (0,1,2,3,4,5):
             screen.blit(bg.background, (bg.posX + bg.width* i, -screen_height*0.06))
-        
+        bg_3_fire.posX = bg.posX
+        screen.blit(bg_3_fire.background, (bg_3_fire.posX + bg_3_fire.width* 2, -screen_height*0.06))
 
 
         # 걷기 모션
@@ -240,10 +279,29 @@ def third_stage():
         
         
         
-        # 캐릭터와 장해물 그리는 부분
+        # 캐릭터와 장애물 그리는 부분
         screen.blit(Puang.character, (Puang.posX, Puang.posY))
         for i in range(0,setup.Obstacle.count):
             screen.blit(obs_list[i].obstacle, (obs_list[i].posX, obs_list[i].posY))    
-        # screen.blit(land_obs.obstacle, (land_obs.posX, land_obs.posY))
-        # screen.blit(land_obs_2.obstacle, (land_obs_2.posX, land_obs_2.posY))
+
+        if collision.is_Collision:
+            if Puang.posX > obs_list[collision.third_coll_num].posX and bub1_time < 30:
+                screen.blit(bubble1.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble1.height))
+                bub1_time += 1
+
+
+            elif Puang.posX > obs_list[collision.third_coll_num].posX and bub2_time < 30:
+                screen.blit(bubble2.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble2.height))
+                bub2_time += 1
+                
+
+            elif Puang.posX > obs_list[collision.third_coll_num].posX and bub3_time < 30:
+                screen.blit(bubble3.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble3.height))
+                bub3_time += 1
+
+        
+        
         py.display.update()
+        
+        
+third_stage()

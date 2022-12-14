@@ -1,6 +1,7 @@
 import pygame as py
 import sys
 import time
+import random
 
 import setup
 import collision
@@ -13,7 +14,11 @@ screen_height = setup.screen_height
 
 def first_stage():
     py.init()
-    
+    global end
+    end = False
+    screen = setup.screen        # 사용자 모니터 해상도
+    screen_width = setup.screen_width
+    screen_height = setup.screen_height
     # 인스턴스 생성 및 초기화
     Puang = setup.Character()
 
@@ -24,18 +29,43 @@ def first_stage():
 
     setup.Obstacle.count = 0
     setup.Obstacle.obs_list = []
-    # land_obs = setup.Obstacle(py.image.load("image\장애물_지상.png"),setup.screen_width*0.2)
-    land_obs = setup.Obstacle(py.image.load("image\stage1_ob1.png"),setup.screen_width*1.3)
-    land_obs_2 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*2)
-    land_obs_3 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*3)
 
+    
+    # 장애물 랜덤 생성
+    ob_1 = "image\stage1_ob1.png"
+    ob_2 = "image\stage1_ob2.png"
+    ob_3 = "image\stage1_ob3.png"
+    ob_4 = "image\stage1_ob4.png"
+    ob_5 = "image\stage1_ob5.png"
+    ob_6 = "image\stage1_ob6.png"
+    type_obs = [ob_1,ob_2,ob_3,ob_4,ob_5,ob_6]
+    # land_obs = setup.Obstacle(py.image.load("image\stage1_ob1.png"),setup.screen_width*1.3)
+    # land_obs_2 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*2)
+    # land_obs_3 = setup.Obstacle(py.image.load("image\stage1_ob2.png"),setup.screen_width*3)
+    land_obs = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*0.6)
+    land_obs_2 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*1)
+
+    land_obs_3 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*1.6)
+    land_obs_4 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*2.1)
+
+    land_obs_5 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*2.5)
+    land_obs_6 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*3)
+
+    land_obs_7 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*3.6)
+    land_obs_8 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*4)
+
+    land_obs_9 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*4.4)
+    land_obs_10 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*4.9)
+
+    land_obs_11 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*5.3)
+    land_obs_12 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,6)]),screen_width*5.6)
+    
+    ob_truck = setup.Obstacle(py.image.load("image\\truck.png"),screen_width*7)
     
     obs_list = setup.Obstacle.obs_list
     
     
-    screen = setup.screen        # 사용자 모니터 해상도
-    screen_width = setup.screen_width
-    screen_height = setup.screen_height
+
     
     # py.display.set_caption("1st_Stage")
     to_x, to_y = 0,0
@@ -54,7 +84,7 @@ def first_stage():
     count = 0
     distance = 0
     cross_leg = True
-    
+    ground = screen_height - Puang.posY
     
     running = True
     while running:
@@ -80,7 +110,7 @@ def first_stage():
                 running = False
                 quit()
 
-            if event.type == py.KEYDOWN:
+            if event.type == py.KEYDOWN and not end:
                 if event.key == py.K_LEFT:
                     to_x -= speed
                     if Puang.is_sight == "right":
@@ -96,12 +126,12 @@ def first_stage():
                 # elif event.key == py.K_DOWN:
                 #     to_y += speed
 
-                elif event.key == py.K_SPACE and Puang.is_running:
+                elif event.key == py.K_SPACE and Puang.is_running and not end:
                     Puang.is_jumping = True
                     Puang.is_running = False
 
 
-            if event.type == py.KEYUP:
+            if event.type == py.KEYUP and not end:
                 if event.key == py.K_LEFT or event.key == py.K_RIGHT:
                     to_x = 0
                     if py.key.get_pressed()[py.K_LEFT]:
@@ -137,9 +167,9 @@ def first_stage():
 
         # 점프
         if Puang.is_jumping:
-            ground = screen_height - Puang.posY
+            
             Puang.posY -= speed
-            if Puang.posY < ground - screen_height * 0.04:  # 점프 높이
+            if Puang.posY < ground/   0.47 :  # 점프 높이
                 Puang.is_jumping = False
 
         # 높이를 지면에 고정(중력)
@@ -194,9 +224,12 @@ def first_stage():
             break
 
             
-        
-        if obs_list[len(obs_list)-1].posX + Puang.width*2 <= Puang.posX:
-            break
+        # 트럭 충돌
+        if obs_list[len(obs_list)-2].posX + Puang.width*6 <= Puang.posX:
+            end = True
+            Puang.posX += speed/2
+            ob_truck.posX -= speed*4
+            
             
         
         if Puang.posX > 0:
@@ -205,10 +238,12 @@ def first_stage():
         
         
         # 배경 그리는 부분
-        for i in (0,1,2,3,4):
+        for i in (0,1,2,3,4,5):
             screen.blit(bg.background, (bg.posX + bg.width* i, -screen_height*0.06))
         
 
+        
+        
 
         # 걷기 모션
         temp_distance = distance
@@ -313,3 +348,24 @@ def coll_3():
         py.display.update()
     
 
+def coll_truck():
+    
+    py.init()
+    running = True
+    img = setup.Scene(py.image.load("image\stg1_D4_0.png"))
+    while running:
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                quit()
+
+            if event.type == py.KEYDOWN:
+
+                if event.key == py.K_SPACE:
+                    running = False
+
+    
+    
+        screen.blit(img.scene,(0,0))
+        py.display.update()
+    
+    

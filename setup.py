@@ -15,8 +15,8 @@ screen = py.display.set_mode((screen_width, screen_height))
 
 class Character:
     size = py.image.load("image\푸앙_사랑_look_right.png").get_rect().size
-    width = size[0] * screen_width/1600 * 0.7            
-    height = size[1] * screen_height/900 * 0.7           # 유저 모니터 해상도에 따라 캐릭터 크기 조정
+    width = size[0] * screen_width/1600 * 0.5            
+    height = size[1] * screen_height/900 * 0.5           # 유저 모니터 해상도에 따라 캐릭터 크기 조정
     character = py.transform.scale(py.image.load("image\walk_1_r.png"), (width,height))
     img_rPuang_std = py.transform.scale(py.image.load("image\walk_1_r.png"), (width,height))
     img_rPuang_walk = py.transform.scale(py.image.load("image\walk2_r.png"), (width,height))
@@ -53,7 +53,6 @@ class Obstacle:
     count = 0
     obs_list = []
     
-    
     def __init__(self, image, posX = 0, posY = 0): # 제 1사분면에서의 좌표값
         self.size = image.get_rect().size
         self.width = self.size[0]* screen_width/1600
@@ -67,14 +66,14 @@ class Obstacle:
 
 
 class Scene:
-    def __init__(self, image):
+    def __init__(self, image, posx = 0, posy = 0):
         self.size = image.get_rect().size
         self.width = self.size[0]* screen_width/1290
         self.height = self.size[1]* screen_height/730
         self.scene = py.transform.scale(image, (self.width,self.height))
         self.size = self.scene.get_rect().size
-        self.posX = 0                           
-        self.posY = 0   
+        self.posX = posx   
+        self.posY = posy
 
       
 
