@@ -4,7 +4,7 @@ import time
 import random
 
 import setup
-import collision
+import play_val
 import cut_source
 
 screen = setup.screen        # 사용자 모니터 해상도
@@ -84,7 +84,7 @@ def third_stage():
     # Puang = setup.Character()
     bg = bg_3
     
-    collision.is_Collision = False
+    play_val.is_Collision = False
     init_speed = 1
     count = 0
     distance = 0
@@ -231,8 +231,8 @@ def third_stage():
                         temp = True
                 
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2 or temp:
-                    collision.is_Collision = True
-                    collision.third_coll_num = i
+                    play_val.is_Collision = True
+                    play_val.third_coll_num = i
                     obs_list[i].is_coll = True
                     temp = False
                     if i == 12:
@@ -264,7 +264,7 @@ def third_stage():
 
         if bub1_time == 30 or bub2_time == 30 or bub3_time == 30:
 
-            collision.is_Collision = False
+            play_val.is_Collision = False
             if bub1_time == 30:
                 bub1_time+=1
             elif bub2_time == 30:
@@ -326,18 +326,18 @@ def third_stage():
                 obs_list[i].sus_count += 1
 
 
-        if collision.is_Collision:
-            if Puang.posX > obs_list[collision.third_coll_num].posX and bub1_time < 30:
+        if play_val.is_Collision:
+            if Puang.posX > obs_list[play_val.third_coll_num].posX and bub1_time < 30:
                 screen.blit(bubble1.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble1.height))
                 bub1_time += 1
 
 
-            elif Puang.posX > obs_list[collision.third_coll_num].posX and bub2_time < 30:
+            elif Puang.posX > obs_list[play_val.third_coll_num].posX and bub2_time < 30:
                 screen.blit(bubble2.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble2.height))
                 bub2_time += 1
                 
 
-            elif Puang.posX > obs_list[collision.third_coll_num].posX and bub3_time < 30:
+            elif Puang.posX > obs_list[play_val.third_coll_num].posX and bub3_time < 30:
                 screen.blit(bubble3.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble3.height))
                 bub3_time += 1
 

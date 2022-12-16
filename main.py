@@ -5,25 +5,26 @@ import time
 import start_menu
 import end
 import setup
-import collision
+import play_val
 import first_stage
 import second_stage
 import third_stage
 import Cut
 
+# 시작 화면
+start_menu.start_menu()
 
 while True:
     first_c = 0
     second_c = 0
-    collision.first_stg_count = 0
-    collision.second_stg_count = 0
-    collision.end_restart = False
-    collision.end_exit = False
+    play_val.first_stg_count = 0
+    play_val.second_stg_count = 0
+    play_val.end_restart = False
+    play_val.end_exit = False
     first_stage.count_coll = 0
     
     
-    # 시작 화면
-    start_menu.start_menu()
+    
     
     # collision.bgm.play()          배경음악
     
@@ -31,7 +32,7 @@ while True:
 
     ## 첫번째 스테이지
 
-    while first_c == 0 or collision.is_Collision:
+    while first_c == 0 or play_val.is_Collision:
         
         if first_stage.count_coll == 1 and not first_stage.end:
             first_stage.coll_1()            # 대사
@@ -65,13 +66,13 @@ while True:
 
         if second_c == 0:
             second_stage.draw_text(4)           # 대사
-            collision.second_stg_count += 1
+            play_val.second_stg_count += 1
         elif second_c == 1:
             second_stage.draw_text(5)           # 대사
-            collision.second_stg_count += 1
+            play_val.second_stg_count += 1
         elif second_c == 2:
             second_stage.draw_text(6)           # 대사
-            collision.second_stg_count += 1
+            play_val.second_stg_count += 1
         second_c += 1
 
 
@@ -93,9 +94,9 @@ while True:
         Cut.hid_end_cut()
         end.hid_ending()
 
-    if collision.end_restart:
+    if play_val.end_restart:
         pass
-    elif collision.end_exit:
+    elif play_val.end_exit:
         break
     
     

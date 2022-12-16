@@ -4,7 +4,7 @@ import time
 import random
 
 import setup
-import collision
+import play_val
 import cut_source
 
 count_coll = 0
@@ -79,7 +79,7 @@ def first_stage():
 
 
     
-    collision.is_Collision = False
+    play_val.is_Collision = False
     init_speed = 1
     count = 0
     distance = 0
@@ -220,9 +220,9 @@ def first_stage():
       
             if Puang.posX  < (obs_list[i].posX + obs_list[i].width)- obs_list[i].width*0.2 and Puang.posX + Puang.width > obs_list[i].posX + obs_list[i].width*0.2:
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
-                    collision.is_Collision = True
-        if collision.is_Collision == True:
-            collision.coll_sound.play()
+                    play_val.is_Collision = True
+        if play_val.is_Collision == True:
+            play_val.coll_sound.play()
             break
 
             
@@ -244,9 +244,9 @@ def first_stage():
             screen.blit(bg.background, (bg.posX + bg.width* i, -screen_height*0.06))
         
         # 조작 방법 창 그리기
-        if collision.first_stg_count < 60:
+        if play_val.first_stg_count < 60:
             screen.blit(sc_con.scene,(0,0))
-            collision.first_stg_count += 1
+            play_val.first_stg_count += 1
         
         
         # 걷기 모션

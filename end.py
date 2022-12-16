@@ -1,6 +1,6 @@
 ﻿import pygame
 import setup
-import collision
+import play_val
 
 SCREEN_WIDTH = setup.screen_width
 SCREEN_HEIGHT = setup.screen_height
@@ -30,7 +30,7 @@ def ending():
             screen.blit(pygame.transform.scale(bt_restart.scene,(bt_restart.width*1.2,bt_restart.height*1.2)),(center_X - bt_restart.width*1.2/2,center_Y - bt_restart.height*1.2/2))
             
             if k_click:
-                collision.end_restart = True
+                play_val.end_restart = True
                 break                                                                                    #다시시작 
             
         else:
@@ -44,7 +44,7 @@ def ending():
             screen.blit(pygame.transform.scale(bt_exit.scene,(bt_exit.width*1.2,bt_exit.height*1.2)),(center_X- bt_exit.width*1.2/2,center_Y - bt_exit.height*1.2/2))
             
             if k_click:                                                                                     #종료
-                collision.end_exit = True
+                play_val.end_exit = True
                 break
             
         else:
@@ -78,7 +78,7 @@ def hid_ending():
             screen.blit(pygame.transform.scale(bt_restart.scene,(bt_restart.width*1.2,bt_restart.height*1.2)),(center_X - bt_restart.width*1.2/2,center_Y - bt_restart.height*1.2/2))
             
             if k_click:
-                collision.end_restart = True
+                play_val.end_restart = True
                 break                                                                                    #다시시작 
             
         else:
@@ -92,7 +92,7 @@ def hid_ending():
             screen.blit(pygame.transform.scale(bt_exit.scene,(bt_exit.width*1.2,bt_exit.height*1.2)),(center_X- bt_exit.width*1.2/2,center_Y - bt_exit.height*1.2/2))
             
             if k_click:                                                                                     #종료
-                collision.end_exit = True
+                play_val.end_exit = True
                 break
             
         else:

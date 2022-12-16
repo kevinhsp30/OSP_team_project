@@ -4,7 +4,7 @@ import time
 import random
 
 import setup
-import collision
+import play_val
 import cut_source
 
 screen = setup.screen        # 사용자 모니터 해상도
@@ -86,7 +86,7 @@ def second_stage():
     # Puang = setup.Character()
     bg = bg_2
     
-    collision.is_Collision = False
+    play_val.is_Collision = False
     init_speed = 1
     count = 0
     distance = 0
@@ -228,28 +228,28 @@ def second_stage():
       
             if Puang.posX  < (obs_list[i].posX + obs_list[i].width)- obs_list[i].width*0.2 and Puang.posX + Puang.width > obs_list[i].posX + obs_list[i].width*0.2:
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
-                    collision.is_Collision = True
+                    play_val.is_Collision = True
                     sound_count += 1
                     if i == 12:
                         end = True
                         
         # 충돌 사운드
-        if sound_count%10 == 0 and collision.is_Collision:
-            collision.coll_sound.play()
+        if sound_count%10 == 0 and play_val.is_Collision:
+            play_val.coll_sound.play()
             
            
-        if not collision.is_Collision:
+        if not play_val.is_Collision:
             speed = temp_speed
     
-        if collision.is_Collision:
+        if play_val.is_Collision:
             # for i in range(0,int(int(obs_list[0].width) /dt)):
             speed = temp_speed
             speed *= 0.1
-            collision.is_Collision = False
+            play_val.is_Collision = False
         
 
         # 9번째 장애물 확정 충돌
-        if collision.second_stg_count == 0:
+        if play_val.second_stg_count == 0:
             if obs_list[7].posX + obs_list[7].width < Puang.posX < obs_list[8].posX + obs_list[8].width and pass9 == 0:
                 pass_9th_ob = True
                 to_x += speed
@@ -338,7 +338,7 @@ def second_stage():
             screen.blit(obs_list[i].obstacle, (obs_list[i].posX, obs_list[i].posY))    
 
         # 말풍선 생성
-        if collision.second_stg_count == 0:
+        if play_val.second_stg_count == 0:
             if Puang.posX > obs_list[1].posX and bub1_time < 45:
                 screen.blit(bubble1.scene,(Puang.posX + Puang.width*0.7, Puang.posY - bubble1.height))
                 bub1_time += 1
