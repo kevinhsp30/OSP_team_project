@@ -7,6 +7,10 @@ import setup
 import play_val
 import cut_source
 
+
+################### 첫 번째 스테이지 파일 ###################
+
+
 count_coll = 0
 
 screen = setup.screen        # 사용자 모니터 해상도

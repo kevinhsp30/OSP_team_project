@@ -7,6 +7,10 @@ import setup
 import play_val
 import cut_source
 
+
+################### 두 번째 스테이지 파일 ###################
+
+
 screen = setup.screen        # 사용자 모니터 해상도
 screen_width = setup.screen_width
 screen_height = setup.screen_height

@@ -3,6 +3,9 @@ import sys
 import time
 
 import setup
+
+################### 컷신 소스 파일 ###################
+
 black = (0,0,0)
 k_space = False
 k_click = False

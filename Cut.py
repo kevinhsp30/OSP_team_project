@@ -1,6 +1,10 @@
 ﻿from cut_source import *
 import setup
 
+
+################### 각종 컷신 파일 ###################
+
+
 bg_fire = setup.Scene(pygame.image.load('image\stage_3\stage3_hd_32_2.png'))
 
 

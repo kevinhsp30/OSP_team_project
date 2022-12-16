@@ -1,6 +1,7 @@
 import setup
 import pygame
-# 충돌함수 구현
+
+################### 각종 변수 제어 파일 ###################
 
 pygame.init()
 

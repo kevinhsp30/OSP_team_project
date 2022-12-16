@@ -1,7 +1,13 @@
 import pygame as py
 import pyautogui
 
+
 # if __name__ == "__main__":
+
+
+############### 화면 크기 조정 및 각종 클래스 정의 파일 ###################
+
+
 
 # 사용자 모니터 크기 가져오기
 M_size = pyautogui.size()
@@ -78,25 +84,3 @@ class Scene:
         self.posY = posy
 
       
-
-
-# class Obstacle:
-#     obstacle = py.image.load("image\장애물_지상.png")
-#     size = obstacle.get_rect().size
-#     width = size[0]
-#     height = size[1]
-#     posX = screen_width - screen_width/8
-#     posY = screen_height - height
-
-# 인스턴스 생성
-# Puang = Character()
-
-# Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-# bg_1 = Background(py.image.load("image\stage1_bg.png"))
-# bg_2 = Background(py.image.load("image\stage2_bg.png"))
-# bg_3 = Background(py.image.load("image\stage3_bg.png"))
-
-
-# land_obs = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*0.2)
-# land_obs_2 = Obstacle(py.image.load("image\장애물_지상.png"),screen_width*1.3)
-# land_obs.obstacle = py.image.load("image\장애물_지상.png")

@@ -11,6 +11,12 @@ import second_stage
 import third_stage
 import Cut
 
+
+################### 메인 실행 파일 ###################
+
+
+
+
 # 시작 화면
 start_menu.start_menu()
 
@@ -30,7 +36,7 @@ while True:
     
     Cut.cut1()
 
-    ## 첫번째 스테이지
+    ## 첫 번째 스테이지
 
     while first_c == 0 or play_val.is_Collision:
         
@@ -53,9 +59,9 @@ while True:
 
 
         
-    ##두번째 스테이지
+    ## 두 번째 스테이지
 
-    # 콘티 10 ~ 13번 삽입
+    # 콘티 10 ~ 13번
     Cut.cut2()
 
     while second_c == 0 or not second_stage.end:
@@ -77,9 +83,9 @@ while True:
 
 
 
-    ## 세번째 스테이지
+    ## 세 번째 스테이지
 
-    # 콘티 24 ~ 25번 삽입
+    # 콘티 24 ~ 25번
     Cut.cut3()
 
     third_stage.third_stage()

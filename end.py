@@ -2,6 +2,10 @@
 import setup
 import play_val
 
+
+################### 엔딩 파일 ###################
+
+
 SCREEN_WIDTH = setup.screen_width
 SCREEN_HEIGHT = setup.screen_height
 

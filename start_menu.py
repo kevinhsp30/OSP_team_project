@@ -4,6 +4,10 @@ import pygame
 
 import setup
 
+
+################### 시작 메뉴 파일 ###################
+
+
 SCREEN_WIDTH = setup.screen_width
 SCREEN_HEIGHT = setup.screen_height
 
