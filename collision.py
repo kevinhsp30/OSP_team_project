@@ -2,6 +2,10 @@ import setup
 import pygame
 # 충돌함수 구현
 
+pygame.init()
+
+coll_sound = pygame.mixer.Sound('sound\collision.mp3')
+# bgm = pygame.mixer.Sound('sound\달빛(Clair de Lune).mp3')
 
 
 is_Collision = False

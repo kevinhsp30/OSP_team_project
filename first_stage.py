@@ -222,6 +222,7 @@ def first_stage():
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
                     collision.is_Collision = True
         if collision.is_Collision == True:
+            collision.coll_sound.play()
             break
 
             
@@ -374,3 +375,4 @@ def coll_truck():
 
         screen.blit(img.scene,(0,0))
         py.display.update()
+

@@ -23,9 +23,10 @@ while True:
     
     
     # 시작 화면
-
     start_menu.start_menu()
-
+    
+    # collision.bgm.play()          배경음악
+    
     Cut.cut1()
 
     ## 첫번째 스테이지

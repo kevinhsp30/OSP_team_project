@@ -94,6 +94,8 @@ def second_stage():
     temp_speed = 0
     ground = screen_height - Puang.posY
     running = True
+    sound_count = 0
+    
     while running:
 
         dt = clock.tick(15)
@@ -227,14 +229,18 @@ def second_stage():
             if Puang.posX  < (obs_list[i].posX + obs_list[i].width)- obs_list[i].width*0.2 and Puang.posX + Puang.width > obs_list[i].posX + obs_list[i].width*0.2:
                 if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
                     collision.is_Collision = True
+                    sound_count += 1
                     if i == 12:
                         end = True
                         
-
+        # 충돌 사운드
+        if sound_count%10 == 0 and collision.is_Collision:
+            collision.coll_sound.play()
+            
            
         if not collision.is_Collision:
             speed = temp_speed
-                    
+    
         if collision.is_Collision:
             # for i in range(0,int(int(obs_list[0].width) /dt)):
             speed = temp_speed
@@ -415,3 +421,4 @@ def coll_truck():
         screen.blit(img.scene,(0,0))
         py.display.update()
     
+
