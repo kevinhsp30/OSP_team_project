@@ -63,7 +63,9 @@ class Obstacle:
         self.posY = screen_height - self.height - posY - screen_height*0.08
         Obstacle.count += 1
         self.obs_list.append(self)
-
+        self.is_coll = False
+        self.sus_count = 0
+        
 
 class Scene:
     def __init__(self, image, posx = 0, posy = 0):

@@ -5,6 +5,7 @@ import random
 
 import setup
 import collision
+import cut_source
 
 count_coll = 0
 
@@ -23,9 +24,11 @@ def first_stage():
     Puang = setup.Character()
 
     # Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-    bg_1 = setup.Background(py.image.load("image\stage1_bg.png"))
-    bg_2 = setup.Background(py.image.load("image\stage2_bg.png"))
+    bg_1 = setup.Background(py.image.load("image\stage1_bg.jpg"))
+    bg_2 = setup.Background(py.image.load("image\stage2_bg.jpg"))
     bg_3 = setup.Background(py.image.load("image\stage3_bg.png"))
+
+    bg = bg_1
 
     setup.Obstacle.count = 0
     setup.Obstacle.obs_list = []
@@ -65,6 +68,7 @@ def first_stage():
     obs_list = setup.Obstacle.obs_list
     
     
+    sc_con = setup.Scene(py.image.load("image\stg_1_con.png"))
 
     
     # py.display.set_caption("1st_Stage")
@@ -72,12 +76,8 @@ def first_stage():
 
     
     clock = py.time.Clock()
-    
-    # bg_1 = setup.Background(py.image.load("image\stage1_bg.png"))
-    # land_obs = setup.land_obs
-    # land_obs_2 = setup.land_obs_2
-    # Puang = setup.Character()
-    bg = bg_1
+
+
     
     collision.is_Collision = False
     init_speed = 1
@@ -91,8 +91,7 @@ def first_stage():
 
         dt = clock.tick(15)
     
-        # 속도 고정
-        # 속도 변화 전처리 or 후처리 결정 필요
+        # 속도 고정, 속도 오류 방지
         if count < 20:
             temp_speed = init_speed
             temp_speed *= dt
@@ -104,6 +103,8 @@ def first_stage():
         print("Fps :", str(clock.get_fps()), "speed :", speed,", ", to_x)
 
 
+
+        
 
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -241,10 +242,12 @@ def first_stage():
         for i in (0,1,2,3,4,5):
             screen.blit(bg.background, (bg.posX + bg.width* i, -screen_height*0.06))
         
-
+        # 조작 방법 창 그리기
+        if collision.first_stg_count < 60:
+            screen.blit(sc_con.scene,(0,0))
+            collision.first_stg_count += 1
         
         
-
         # 걷기 모션
         temp_distance = distance
         if temp_distance%speed !=0:
@@ -290,6 +293,7 @@ def coll_1():
     py.init()
     running = True
     stg1_D1 = setup.Scene(py.image.load("image\stg1_D1.png"))
+    cut_source.t_sound.play()
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -311,6 +315,7 @@ def coll_2():
     py.init()
     running = True
     stg1_D1 = setup.Scene(py.image.load("image\stg1_D2.png"))
+    cut_source.t_sound.play()
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -332,6 +337,7 @@ def coll_3():
     py.init()
     running = True
     stg1_D1 = setup.Scene(py.image.load("image\stg1_D3.png"))
+    cut_source.t_sound.play()
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -353,6 +359,7 @@ def coll_truck():
     py.init()
     running = True
     img = setup.Scene(py.image.load("image\stg1_D4_0.png"))
+    cut_source.car_sound.play()
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -364,8 +371,6 @@ def coll_truck():
                     running = False
 
     
-    
+
         screen.blit(img.scene,(0,0))
         py.display.update()
-    
-    

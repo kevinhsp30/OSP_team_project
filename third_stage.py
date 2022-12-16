@@ -5,11 +5,13 @@ import random
 
 import setup
 import collision
-
+import cut_source
 
 screen = setup.screen        # 사용자 모니터 해상도
 screen_width = setup.screen_width
 screen_height = setup.screen_height
+
+
 
 def third_stage():
     py.init()
@@ -32,7 +34,8 @@ def third_stage():
     ob_3 = "image\stage_3\stage3_ob3.png"
     ob_4 = "image\stage_3\stage3_ob4.png"
     
-    effect = "image\stage_3\stage3_paang.png"
+    effect = setup.Scene(py.image.load("image\stage_3\stage3_paang.png"))
+    
 
     bubble1 = setup.Scene(py.image.load("image\stage_3\stage3_bubble1.png"))
     bubble2 = setup.Scene(py.image.load("image\stage_3\stage3_bubble2.png"))
@@ -61,7 +64,7 @@ def third_stage():
     land_obs_11 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*5.3)
     land_obs_12 = setup.Obstacle(py.image.load(type_obs[random.randrange(0,4)]),screen_width*5.6)
     
-    ob_truck = setup.Obstacle(py.image.load("image\\truck.png"),screen_width*7)
+    ob_truck = setup.Obstacle(py.image.load("image\\truck_2.png"),screen_width*7)
     
     obs_list = setup.Obstacle.obs_list
     
@@ -89,8 +92,13 @@ def third_stage():
     temp_speed = 0
     ground = screen_height - Puang.posY    
     running = True
+    global is_coll_truck
+    is_coll_truck = False
+    temp_t = 0
+    
     while running:
-
+        
+        
         dt = clock.tick(15)
     
         # 속도 고정
@@ -216,13 +224,43 @@ def third_stage():
         
         # 충돌 확인
         for i in range(0,len(obs_list)):
-      
+            temp = False
             if Puang.posX  < (obs_list[i].posX + obs_list[i].width)- obs_list[i].width*0.2 and Puang.posX + Puang.width > obs_list[i].posX + obs_list[i].width*0.2:
-                if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2:
+                if i != len(obs_list)-1:
+                    if random.randrange(1,15) == 1 and i != 12:
+                        temp = True
+                
+                if Puang.posY + Puang.height > obs_list[i].posY + obs_list[i].height*0.2 or temp:
                     collision.is_Collision = True
                     collision.third_coll_num = i
-                    # del obs_list[i]
-                    pass
+                    obs_list[i].is_coll = True
+                    temp = False
+                    if i == 12:
+                        is_coll_truck = True
+
+
+        # 트럭 충돌
+        if obs_list[len(obs_list)-2].posX + Puang.width*6 <= Puang.posX:
+            ob_truck.posX -= speed*1.5
+            if ob_truck.posX+ob_truck.width <= Puang.posX:
+                ob_truck.posX -= speed*1.5
+
+
+        # 트럭 충돌 시
+        if is_coll_truck:
+            
+            
+            break
+        
+        # 트럭 회피 시
+        if  Puang.posX >= ob_truck.posX and Puang.posY == screen_height - Puang.height - screen_height*0.1: # 바닥
+            temp_t += 1
+            if temp_t >= 2:
+                
+                is_coll_truck = False
+                break
+            
+
 
         if bub1_time == 30 or bub2_time == 30 or bub3_time == 30:
 
@@ -233,7 +271,7 @@ def third_stage():
                 bub2_time+=1
             elif bub3_time == 30:
                 bub3_time+=1
-        
+
         
         if Puang.posX > 0:
             distance += to_x
@@ -278,11 +316,15 @@ def third_stage():
         
         
         
-        
         # 캐릭터와 장애물 그리는 부분
         screen.blit(Puang.character, (Puang.posX, Puang.posY))
         for i in range(0,setup.Obstacle.count):
-            screen.blit(obs_list[i].obstacle, (obs_list[i].posX, obs_list[i].posY))    
+            if not obs_list[i].is_coll:
+                screen.blit(obs_list[i].obstacle, (obs_list[i].posX, obs_list[i].posY))
+            elif obs_list[i].is_coll and obs_list[i].sus_count < 15:
+                screen.blit(effect.scene, (obs_list[i].posX, obs_list[i].posY))
+                obs_list[i].sus_count += 1
+
 
         if collision.is_Collision:
             if Puang.posX > obs_list[collision.third_coll_num].posX and bub1_time < 30:
@@ -304,4 +346,62 @@ def third_stage():
         py.display.update()
         
         
-third_stage()
+
+def draw_text(num):
+    py.init()
+    
+    running = True
+
+    stg3_D1 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_1.png"))
+    stg3_D2 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_2.png"))
+    stg3_D3 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_3.png"))
+    stg3_D4 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_4.png"))
+    stg3_D5 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_5.png"))
+    stg3_D6 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_6.png"))
+    stg3_D7 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_7.png"))
+    stg3_D8 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_8.png"))
+    stg3_D9 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_9.png"))
+    stg3_D10 = setup.Scene(py.image.load("image\stage_3\stage3_hd_32_1_10.png"))
+    
+    if num != 1:
+        cut_source.t_sound.play()
+    while running:
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                quit()
+
+            if event.type == py.KEYDOWN:
+
+                if event.key == py.K_SPACE:
+                    running = False
+
+        if num == 1:
+            screen.blit(stg3_D1.scene,(0,0))
+            time.sleep(0.5)
+        elif num == 2:
+            screen.blit(stg3_D2.scene,(0,0))
+            
+        elif num == 3:
+            screen.blit(stg3_D3.scene,(0,0))
+        
+        elif num == 4:
+            screen.blit(stg3_D4.scene,(0,0))
+            
+        elif num == 5:
+            screen.blit(stg3_D5.scene,(0,0))
+        
+        elif num == 6:
+            screen.blit(stg3_D6.scene,(0,0))
+            
+        elif num == 7:
+            screen.blit(stg3_D7.scene,(0,0))
+        
+        elif num == 8:
+            screen.blit(stg3_D8.scene,(0,0))
+            
+        elif num == 9:
+            screen.blit(stg3_D9.scene,(0,0))
+        
+        elif num == 10:
+            screen.blit(stg3_D10.scene,(0,0))
+        py.display.update()

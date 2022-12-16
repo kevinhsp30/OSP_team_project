@@ -5,6 +5,7 @@ import random
 
 import setup
 import collision
+import cut_source
 
 screen = setup.screen        # 사용자 모니터 해상도
 screen_width = setup.screen_width
@@ -26,8 +27,8 @@ def second_stage():
     Puang = setup.Character()
 
     # Puang.character = py.transform.scale(py.image.load("image\푸앙_사랑_look_right.png"), (Puang.width,Puang.height))
-    bg_1 = setup.Background(py.image.load("image\stage1_bg.png"))
-    bg_2 = setup.Background(py.image.load("image\stage2_bg.png"))
+    bg_1 = setup.Background(py.image.load("image\stage1_bg.jpg"))
+    bg_2 = setup.Background(py.image.load("image\stage2_bg.jpg"))
     bg_3 = setup.Background(py.image.load("image\stage3_bg.png"))
 
     setup.Obstacle.count = 0
@@ -252,12 +253,15 @@ def second_stage():
             elif Puang.posX >= obs_list[8].posX + obs_list[8].width and temp_pass9 == pass9:
                 pass_9th_ob = False
                 draw_text(1)
+                
                 temp_pass9 += 1
             elif temp_pass9 == pass9+1:
                 draw_text(2)
+                
                 temp_pass9 += 1
             elif temp_pass9 == pass9+2:
                 draw_text(3)
+                
                 temp_pass9 += 1
             
             
@@ -360,7 +364,7 @@ def draw_text(num):
     stg2_D6 = setup.Scene(py.image.load("image\Room2_4_D3.png"))
     
     
-    
+    cut_source.t_sound.play()
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -383,7 +387,7 @@ def draw_text(num):
         
         elif num == 4:
             screen.blit(stg2_D4.scene,(0,0))
-        
+            
         elif num == 5:
             screen.blit(stg2_D5.scene,(0,0))
         
@@ -396,6 +400,7 @@ def coll_truck():
     py.init()
     running = True
     img = setup.Scene(py.image.load("image\Room2_5_D1.png"))
+    cut_source.car_sound.play()
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -409,5 +414,4 @@ def coll_truck():
     
         screen.blit(img.scene,(0,0))
         py.display.update()
-    
     
